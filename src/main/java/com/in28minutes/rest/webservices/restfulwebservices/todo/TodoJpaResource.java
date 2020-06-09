@@ -62,17 +62,14 @@ public class TodoJpaResource {
 	@PostMapping("/jpa/users/{username}/todos")
 	public ResponseEntity<Void> createTodo(
 			@PathVariable String username, @RequestBody Todo todo){
-		
 		todo.setUsername(username);
 		
 		Todo createdTodo = todoJpaRepository.save(todo);
-		
 		//Location
 		//Get current resource url
 		///{id}
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(createdTodo.getId()).toUri();
-		
 		return ResponseEntity.created(uri).build();
 	}
 		
